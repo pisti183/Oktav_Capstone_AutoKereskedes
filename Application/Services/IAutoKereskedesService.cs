@@ -4,6 +4,7 @@ namespace Application.Services
 {
     public interface IAutoKereskedesService
     {
-        public Task<IEnumerable<Auto>> GetAutoByFiltersAsync(string[] filter);
+        public Task<IEnumerable<KerAutoKartya>> GetAllAutosAsync(CancellationToken cancellationToken);
+        public Task<IEnumerable<KerAutoTeljes>> GetAutoByFiltersAsync(string[] filter, CancellationToken cancellationToken);
     }
 }
