@@ -13,16 +13,18 @@ namespace Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<KerAutoTeljes>(c =>
             {
-                
+                c.ToTable("KerAutoTeljes");
                 c.HasKey(a => a.Id);
                 c.Property(a => a.KerAutoFelszereltsegId).IsRequired(true);
                 c.Property(a => a.KerAutoKartyaId).IsRequired(true);
                 c.Property(a => a.Rendszam).HasMaxLength(7).IsRequired(true);
                 c.Property(a => a.Marka).HasMaxLength(25).IsRequired(true);
                 c.Property(a => a.Modell).HasMaxLength(25).IsRequired(true);
-                c.Property(a => a.GyartasiEv).IsRequired(true);
+                c.Property(a => a.GyartasiEv).HasMaxLength(4).IsRequired(true);
                 c.Property(a => a.Ar).IsRequired(true);
                 c.Property(a => a.MotorTipus).HasMaxLength(50).IsRequired(true);
                 c.Property(a => a.TeljesitmenyKw).IsRequired(true);
@@ -53,6 +55,7 @@ namespace Infrastructure
 
             modelBuilder.Entity<KerAutoFelszereltseg>(c =>
             {
+                c.ToTable("KerAutoFelszereltseg");
                 c.HasKey(a => a.Id);
                 c.Property(a => a.KerAutoTeljesId).IsRequired(true);
                 c.Property(a => a.FuthetoUles).IsRequired(true);
@@ -82,17 +85,19 @@ namespace Infrastructure
 
             modelBuilder.Entity<KerAutoKartya>(c =>
             {
+                c.ToTable("KerAutoKartya");
                 c.HasKey(a => a.Id);
                 c.Property(a => a.KerAutoTeljesId).IsRequired(true);
                 c.Property(a => a.Marka).HasMaxLength(25).IsRequired(false);
                 c.Property(a => a.Modell).HasMaxLength(25).IsRequired(false);
-                c.Property(a => a.GyartasiEv).IsRequired(false);
-                c.Property(a => a.Ar).IsRequired(false);
-                c.Property(a => a.KilometerOraAllas).IsRequired(false);
+                c.Property(a => a.GyartasiEv).HasMaxLength(4).IsRequired(false);
+                c.Property(a => a.Ar).IsRequired(true);
+                c.Property(a => a.KilometerOraAllas).IsRequired(true);
             });
 
             modelBuilder.Entity<BerAuto>(c =>
             {
+                c.ToTable("BerAuto");
                 c.HasKey(a => a.Id);
                 c.Property(a => a.Marka).HasMaxLength(25).IsRequired(true);
                 c.Property(a => a.Modell).HasMaxLength(25).IsRequired(true);
@@ -110,13 +115,14 @@ namespace Infrastructure
 
             modelBuilder.Entity<BerFoglalas>(c =>
             {
+                c.ToTable("BerFoglalas");
                 c.HasKey(a => a.Id);
                 c.Property(a => a.BerAutoId).IsRequired(true);
                 c.Property(a => a.TeljesNev).HasMaxLength(100).IsRequired(true);
                 c.Property(a => a.TelefonSzam).HasMaxLength(16).IsRequired(true);
                 c.Property(a => a.Marka).HasMaxLength(25).IsRequired(false);
                 c.Property(a => a.Modell).HasMaxLength(25).IsRequired(false);
-                c.Property(a => a.BerlesNapiAra).IsRequired(false);
+                c.Property(a => a.BerlesNapiAra).IsRequired(true);
                 c.Property(a => a.AtvetelDatuma).IsRequired(true);
                 c.Property(a => a.VisszaadasDatuma).IsRequired(true);
                 c.Property(a => a.AtvetelHelyszine).HasMaxLength(200).IsRequired(true);

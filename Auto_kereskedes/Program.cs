@@ -15,9 +15,15 @@ builder.Services.AddTransient<IAutoKereskedesRepository, AutoKereskedesRepositor
 builder.Services.AddDbContext<ApplicationDbContext>(config =>
     config.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI();
 
+app.UseHttpsRedirection();
+
+app.MapControllers();
 
 app.Run();
