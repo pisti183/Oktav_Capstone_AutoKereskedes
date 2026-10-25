@@ -13,7 +13,7 @@ namespace Auto_kereskedes.Controllers
         [HttpGet("/")]
         public async Task<IActionResult> AllAutos(CancellationToken cancellationToken)
         {
-            IEnumerable<KerAutoKartya> result = await autoKereskedesService.GetAllAutosAsync(cancellationToken);
+            IEnumerable<KartyaRequest> result = await autoKereskedesService.GetAllAutosAsync(cancellationToken);
 
             return result switch
             {
