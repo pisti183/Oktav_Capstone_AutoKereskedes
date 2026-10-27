@@ -10,14 +10,14 @@ namespace Auto_kereskedes.Controllers
     public class AutoKereskedesController(IAutoKereskedesService autoKereskedesService) : ControllerBase
     {
         [AllowAnonymous]
-        [HttpGet("/")]
+        [HttpGet]
         public async Task<IActionResult> AllAutos(CancellationToken cancellationToken)
         {
             IEnumerable<KartyaRequest> result = await autoKereskedesService.GetAllAutosAsync(cancellationToken);
 
             return result switch
             {
-                _ when result.Count() == 0 => NotFound(),
+                _ when !result.Any() => NotFound(),
                 _ => Ok(result)
             };
         }
@@ -30,7 +30,7 @@ namespace Auto_kereskedes.Controllers
 
             return result switch
             {
-                _ when result.Count() == 0 => NotFound(),
+                _ when !result.Any() => NotFound(),
                 _ => Ok(result)
             };
         }
