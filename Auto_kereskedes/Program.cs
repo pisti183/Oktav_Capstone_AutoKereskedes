@@ -9,6 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendPolicy", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddTransient<IAutoKereskedesService, AutoKereskedesService>();
 builder.Services.AddTransient<IAutoKereskedesRepository, AutoKereskedesRepository>();
 
@@ -23,6 +34,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseCors("FrontendPolicy");
 
 app.MapControllers();
 
